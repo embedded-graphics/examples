@@ -162,40 +162,6 @@ impl Parameters {
     }
 }
 
-trait GetParameter<T> {
-    fn get(&self, name: &str) -> T;
-}
-
-impl GetParameter<u32> for Parameters {
-    fn get(&self, name: &str) -> u32 {
-        if let Parameter::U32(value) = self.get_by_name(name) {
-            *value
-        } else {
-            panic!("wrong parameter type: {}", name)
-        }
-    }
-}
-
-impl GetParameter<i32> for Parameters {
-    fn get(&self, name: &str) -> i32 {
-        if let Parameter::I32(value) = self.get_by_name(name) {
-            *value
-        } else {
-            panic!("wrong parameter type: {}", name)
-        }
-    }
-}
-
-impl GetParameter<Point> for Parameters {
-    fn get(&self, name: &str) -> Point {
-        if let Parameter::Point(value) = self.get_by_name(name) {
-            *value
-        } else {
-            panic!("wrong parameter type: {}", name)
-        }
-    }
-}
-
 pub(crate) enum Event {
     Up,
     Down,
