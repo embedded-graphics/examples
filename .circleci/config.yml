@@ -1,0 +1,44 @@
+version: 2.1
+
+commands:
+  # Checkout repo, restore cache and update Cargo.lock
+  common_init:
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}-{{ checksum "eg-next/Cargo.lock" }}
+
+  # Save cache
+  common_finish:
+    steps:
+      - save_cache:
+          key: v1-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}-{{ checksum "eg-next/Cargo.lock" }}
+          paths:
+            - ./target
+            - /home/circleci/.cargo/registry
+
+jobs:
+  msrv:
+    docker: &docker
+      - image: jamwaffles/circleci-embedded-graphics:1.40.0-3
+        auth:
+          username: jamwaffles
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - common_init
+      - run: just build
+      - common_finish
+
+  stable:
+    docker: *docker
+    steps:
+      - run: rustup default stable
+      - common_init
+      - run: just build
+      - common_finish
+
+workflows:
+  build_all:
+    jobs:
+      - msrv
+      - stable
