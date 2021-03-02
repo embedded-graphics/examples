@@ -3,7 +3,9 @@
 //! Shows multiple triangles with different properties
 
 use embedded_graphics::{
-    pixelcolor::BinaryColor, prelude::*, primitives::Triangle, style::PrimitiveStyle,
+    pixelcolor::BinaryColor,
+    prelude::*,
+    primitives::{PrimitiveStyle, Triangle},
 };
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
 

@@ -6,8 +6,10 @@ use core::convert::Infallible;
 use embedded_graphics::{
     pixelcolor::BinaryColor,
     prelude::*,
-    primitives::{Circle, CornerRadii, Ellipse, Rectangle, RoundedRectangle, Triangle},
-    style::{PrimitiveStyle, PrimitiveStyleBuilder},
+    primitives::{
+        Circle, CornerRadii, Ellipse, PrimitiveStyle, PrimitiveStyleBuilder, Rectangle,
+        RoundedRectangle, Triangle,
+    },
 };
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
 

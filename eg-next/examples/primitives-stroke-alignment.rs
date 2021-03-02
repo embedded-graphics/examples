@@ -7,11 +7,12 @@
 
 use core::convert::Infallible;
 use embedded_graphics::{
-    mono_font::{Font6x12, MonoTextStyle},
+    mono_font::{ascii::Font6x12, MonoTextStyle},
     pixelcolor::Rgb888,
     prelude::*,
-    primitives::{Circle, Ellipse, Rectangle},
-    style::{PrimitiveStyle, PrimitiveStyleBuilder, StrokeAlignment},
+    primitives::{
+        Circle, Ellipse, PrimitiveStyle, PrimitiveStyleBuilder, Rectangle, StrokeAlignment,
+    },
     text::Text,
 };
 use embedded_graphics_simulator::{
@@ -30,11 +31,11 @@ fn draw_primitives(
     let row_offset = Size::new(0, SIZE + PADDING);
 
     Rectangle::new(position, Size::new(SIZE, SIZE))
-        .into_styled(style.clone())
+        .into_styled(style)
         .draw(display)?;
 
     Circle::new(position + row_offset, SIZE)
-        .into_styled(style.clone())
+        .into_styled(style)
         .draw(display)?;
 
     Ellipse::new(position + row_offset * 2, Size::new(SIZE, SIZE + 16))

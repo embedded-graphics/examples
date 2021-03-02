@@ -3,7 +3,7 @@
 //! Exercise the font renderer to demonstrate rendering of multiline text
 
 use embedded_graphics::{
-    mono_font::{Font6x8, MonoTextStyleBuilder},
+    mono_font::{ascii::Font6x9, MonoTextStyleBuilder},
     pixelcolor::BinaryColor,
     prelude::*,
     text::Text,
@@ -15,7 +15,7 @@ fn main() -> Result<(), core::convert::Infallible> {
 
     // Show multiline text example
     let style = MonoTextStyleBuilder::new()
-        .font(Font6x8)
+        .font(Font6x9)
         .text_color(BinaryColor::On)
         .background_color(BinaryColor::Off)
         .build();

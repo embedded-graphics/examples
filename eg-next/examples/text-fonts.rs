@@ -4,7 +4,8 @@
 
 use embedded_graphics::{
     mono_font::{
-        Font12x16, Font24x32, Font6x12, Font6x8, Font8x16, MonoTextStyle, MonoTextStyleBuilder,
+        ascii::{Font10x20, Font5x8, Font6x12, Font9x15},
+        MonoTextStyle, MonoTextStyleBuilder,
     },
     pixelcolor::BinaryColor,
     prelude::*,
@@ -17,12 +18,12 @@ fn main() -> Result<(), core::convert::Infallible> {
 
     // Show smallest font with black font on white background (default value for fonts)
     Text::new("Hello World! - default style 6x8", Point::new(15, 15))
-        .into_styled(MonoTextStyle::new(Font6x8, BinaryColor::On))
+        .into_styled(MonoTextStyle::new(Font5x8, BinaryColor::On))
         .draw(&mut display)?;
 
     // Show smallest font with white font on black background
     let style = MonoTextStyleBuilder::new()
-        .font(Font6x8)
+        .font(Font5x8)
         .text_color(BinaryColor::Off)
         .background_color(BinaryColor::On)
         .build();
@@ -36,19 +37,14 @@ fn main() -> Result<(), core::convert::Infallible> {
         .into_styled(MonoTextStyle::new(Font6x12, BinaryColor::On))
         .draw(&mut display)?;
 
-    // Show 8x16 Font
-    Text::new("Hello 8x16!", Point::new(15, 70))
-        .into_styled(MonoTextStyle::new(Font8x16, BinaryColor::On))
+    // Show 9x15 Font
+    Text::new("Hello 9x15!", Point::new(15, 70))
+        .into_styled(MonoTextStyle::new(Font9x15, BinaryColor::On))
         .draw(&mut display)?;
 
-    // Show 12x16 Font
-    Text::new("Hello 12x16!", Point::new(15, 95))
-        .into_styled(MonoTextStyle::new(Font12x16, BinaryColor::On))
-        .draw(&mut display)?;
-
-    // Show 24x32 Font
-    Text::new("Hello 24x32!", Point::new(15, 150))
-        .into_styled(MonoTextStyle::new(Font24x32, BinaryColor::On))
+    // Show 10x20 Font
+    Text::new("Hello 10x20!", Point::new(15, 95))
+        .into_styled(MonoTextStyle::new(Font10x20, BinaryColor::On))
         .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(2).build();

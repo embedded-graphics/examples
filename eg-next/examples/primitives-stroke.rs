@@ -5,8 +5,9 @@
 use embedded_graphics::{
     pixelcolor::BinaryColor,
     prelude::*,
-    primitives::{Circle, CornerRadii, Ellipse, Line, Rectangle, RoundedRectangle, Triangle},
-    style::PrimitiveStyle,
+    primitives::{
+        Circle, CornerRadii, Ellipse, Line, PrimitiveStyle, Rectangle, RoundedRectangle, Triangle,
+    },
 };
 use embedded_graphics_simulator::{OutputSettings, SimulatorDisplay, Window};
 

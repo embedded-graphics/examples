@@ -2,7 +2,7 @@
 //!
 //! This example draws the intersection of two base rectangles (red and green) in blue.
 
-use embedded_graphics::{pixelcolor::Rgb888, prelude::*, primitives::*, style::PrimitiveStyle};
+use embedded_graphics::{pixelcolor::Rgb888, prelude::*, primitives::*};
 use embedded_graphics_simulator::{
     OutputSettingsBuilder, SimulatorDisplay, SimulatorEvent, Window,
 };

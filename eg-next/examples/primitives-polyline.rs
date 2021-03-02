@@ -3,7 +3,9 @@
 //! This example draws a crude "heartbeat" shape using the `Polyline` primitive
 
 use embedded_graphics::{
-    pixelcolor::Rgb888, prelude::*, primitives::Polyline, style::PrimitiveStyle,
+    pixelcolor::Rgb888,
+    prelude::*,
+    primitives::{Polyline, PrimitiveStyle},
 };
 use embedded_graphics_simulator::{OutputSettings, SimulatorDisplay, Window};
 

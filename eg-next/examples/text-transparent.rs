@@ -3,11 +3,10 @@
 //! Demonstrate the background styles and transparency behaviors of different font styles.
 
 use embedded_graphics::{
-    mono_font::{Font6x8, MonoTextStyleBuilder},
+    mono_font::{ascii::Font6x9, MonoTextStyleBuilder},
     pixelcolor::Rgb565,
     prelude::*,
-    primitives::{Circle, Rectangle},
-    style::PrimitiveStyle,
+    primitives::{Circle, PrimitiveStyle, Rectangle},
     text::Text,
 };
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
@@ -27,9 +26,9 @@ fn main() -> Result<(), core::convert::Infallible> {
 
     Text::new("Hello world! - no background", Point::new(15, 15))
         .into_styled(
-            // Can also be written in the shorter form: TextStyle:new(Font6x8, Rgb565::WHITE)
+            // Can also be written in the shorter form: TextStyle::new(Font6x9, Rgb565::WHITE)
             MonoTextStyleBuilder::new()
-                .font(Font6x8)
+                .font(Font6x9)
                 .text_color(Rgb565::WHITE)
                 .build(),
         )
@@ -39,7 +38,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     Text::new("Hello world! - filled background", Point::new(15, 30))
         .into_styled(
             MonoTextStyleBuilder::new()
-                .font(Font6x8)
+                .font(Font6x9)
                 .text_color(Rgb565::YELLOW)
                 .background_color(Rgb565::BLUE)
                 .build(),
@@ -50,7 +49,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     Text::new("Hello world! - inverse background", Point::new(15, 45))
         .into_styled(
             MonoTextStyleBuilder::new()
-                .font(Font6x8)
+                .font(Font6x9)
                 .text_color(Rgb565::BLUE)
                 .background_color(Rgb565::YELLOW)
                 .build(),

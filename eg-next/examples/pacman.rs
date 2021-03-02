@@ -3,8 +3,9 @@
 //! An example displaying an animated Pacman.
 
 use embedded_graphics::{
-    pixelcolor::Rgb565, prelude::*, primitives::Circle, primitives::Sector,
-    style::PrimitiveStyleBuilder,
+    pixelcolor::Rgb565,
+    prelude::*,
+    primitives::{Circle, PrimitiveStyleBuilder, Sector},
 };
 use embedded_graphics_simulator::{
     OutputSettingsBuilder, SimulatorDisplay, SimulatorEvent, Window,

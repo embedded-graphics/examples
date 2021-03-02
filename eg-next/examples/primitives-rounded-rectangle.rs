@@ -4,12 +4,7 @@
 //! rectangle around the screen. The up/down arrow keys adjust stroke width, left/right the corner
 //! radius. Space cycles the stroke alignment between center/outside/inside.
 
-use embedded_graphics::{
-    pixelcolor::Rgb888,
-    prelude::*,
-    primitives::*,
-    style::{PrimitiveStyleBuilder, StrokeAlignment},
-};
+use embedded_graphics::{pixelcolor::Rgb888, prelude::*, primitives::*};
 use embedded_graphics_simulator::{
     sdl2::Keycode, OutputSettingsBuilder, SimulatorDisplay, SimulatorEvent, Window,
 };

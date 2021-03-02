@@ -3,11 +3,10 @@
 //! An example displaying a progress circle.
 
 use embedded_graphics::{
-    mono_font::{Font12x16, MonoTextStyle},
+    mono_font::{ascii::Font10x20, MonoTextStyle},
     pixelcolor::BinaryColor,
     prelude::*,
-    primitives::Arc,
-    style::{PrimitiveStyleBuilder, StrokeAlignment},
+    primitives::{Arc, PrimitiveStyleBuilder, StrokeAlignment},
     text::{HorizontalAlignment, Text, TextStyleBuilder, VerticalAlignment},
 };
 use embedded_graphics_simulator::{
@@ -25,7 +24,7 @@ fn main() -> Result<(), std::convert::Infallible> {
         .stroke_width(5)
         .stroke_alignment(StrokeAlignment::Inside)
         .build();
-    let character_style = MonoTextStyle::new(Font12x16, BinaryColor::On);
+    let character_style = MonoTextStyle::new(Font10x20, BinaryColor::On);
     let text_style = TextStyleBuilder::new()
         .character_style(character_style)
         .vertical_alignment(VerticalAlignment::Center)

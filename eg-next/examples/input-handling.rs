@@ -9,7 +9,9 @@ extern crate embedded_graphics;
 extern crate embedded_graphics_simulator;
 
 use embedded_graphics::{
-    pixelcolor::Rgb888, prelude::*, primitives::Circle, style::PrimitiveStyle,
+    pixelcolor::Rgb888,
+    prelude::*,
+    primitives::{Circle, PrimitiveStyle},
 };
 use embedded_graphics_simulator::{
     sdl2::Keycode, OutputSettings, SimulatorDisplay, SimulatorEvent, Window,

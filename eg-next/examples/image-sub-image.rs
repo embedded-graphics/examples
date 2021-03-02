@@ -8,7 +8,7 @@
 
 use embedded_graphics::{
     image::Image,
-    mono_font::{Font6x8, MonoTextStyle},
+    mono_font::{ascii::Font6x9, MonoTextStyle},
     pixelcolor::Rgb888,
     prelude::*,
     primitives::Rectangle,
@@ -38,7 +38,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     Image::new(&tile_c, Point::new(100, 310)).draw(&mut display)?;
 
     // Draw labels.
-    let text_style = MonoTextStyle::new(Font6x8, Rgb888::WHITE);
+    let text_style = MonoTextStyle::new(Font6x9, Rgb888::WHITE);
     Text::new("TGA image", Point::new(10, 70))
         .into_styled(text_style)
         .draw(&mut display)?;

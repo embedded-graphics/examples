@@ -3,11 +3,12 @@
 //! A simple hello world example displaying some primitive shapes and some text underneath.
 
 use embedded_graphics::{
-    mono_font::{Font6x8, MonoTextStyle},
+    mono_font::{ascii::Font5x8, MonoTextStyle},
     pixelcolor::BinaryColor,
     prelude::*,
-    primitives::{Circle, Rectangle, Triangle},
-    style::{PrimitiveStyle, PrimitiveStyleBuilder, StrokeAlignment},
+    primitives::{
+        Circle, PrimitiveStyle, PrimitiveStyleBuilder, Rectangle, StrokeAlignment, Triangle,
+    },
     text::Text,
 };
 use embedded_graphics_simulator::{
@@ -26,7 +27,7 @@ fn main() -> Result<(), std::convert::Infallible> {
         .stroke_alignment(StrokeAlignment::Inside)
         .build();
     let fill = PrimitiveStyle::with_fill(BinaryColor::On);
-    let text_style = MonoTextStyle::new(Font6x8, BinaryColor::On);
+    let text_style = MonoTextStyle::new(Font5x8, BinaryColor::On);
 
     let yoffset = 14;
 

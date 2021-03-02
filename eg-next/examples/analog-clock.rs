@@ -9,11 +9,10 @@
 use chrono::{Local, Timelike};
 use core::f32::consts::PI;
 use embedded_graphics::{
-    mono_font::{Font12x16, MonoTextStyle},
+    mono_font::{ascii::Font9x15, MonoTextStyle},
     pixelcolor::BinaryColor,
     prelude::*,
-    primitives::{Circle, Line, Rectangle},
-    style::{PrimitiveStyle, PrimitiveStyleBuilder},
+    primitives::{Circle, Line, PrimitiveStyle, PrimitiveStyleBuilder, Rectangle},
     text::Text,
 };
 use embedded_graphics_simulator::{
@@ -140,7 +139,7 @@ where
 {
     // Create a styled text object for the time text.
     let mut text = Text::new(&time_str, Point::zero())
-        .into_styled(MonoTextStyle::new(Font12x16, BinaryColor::Off));
+        .into_styled(MonoTextStyle::new(Font9x15, BinaryColor::Off));
 
     // Move text to be centered between the 12 o'clock point and the center of the clock face.
     text.translate_mut(
