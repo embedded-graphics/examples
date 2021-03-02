@@ -6,13 +6,13 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          key: v2-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}
+          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}
 
   # Save cache
   common_finish:
     steps:
       - save_cache:
-          key: v2-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}
+          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}
           paths:
             - ./target
             - /home/circleci/.cargo/registry
