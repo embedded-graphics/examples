@@ -1,0 +1,14 @@
+[package]
+name = "eg-examples-0-6"
+version = "0.1.0"
+authors = ["Ralf Fuest <mail@rfuest.de>"]
+edition = "2018"
+publish = false
+
+[dependencies]
+chrono = "0.4.19"
+embedded-graphics = "0.6.2"
+embedded-graphics-simulator = "0.2.1"
+tinytga = { version = "0.3.2", features = [ "graphics" ] }
+tinybmp = { version = "0.2.2", features = [ "graphics" ] }
+sdl2 = "0.32.2"
