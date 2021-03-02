@@ -3,8 +3,8 @@ name = "eg-examples"
 version = "0.1.0"
 authors = ["Ralf Fuest <mail@rfuest.de>"]
 edition = "2018"
+publish = false
 
-# TODO: use e-g release from crates.io
 [dependencies]
 chrono = "0.4.19"
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
@@ -12,7 +12,6 @@ embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simu
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
 
-# TODO: remove when dependencies are updated
 [patch.crates-io]
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-graphics-core = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
