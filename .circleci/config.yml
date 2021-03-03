@@ -1,0 +1,45 @@
+version: 2.1
+
+commands:
+  # Checkout repo and restore cache
+  common_init:
+    steps:
+      - checkout
+      - restore_cache:
+          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}
+
+  # Save cache
+  common_finish:
+    steps:
+      - save_cache:
+          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-0.6/Cargo.lock" }}
+          paths:
+            - ./target
+            - /home/circleci/.cargo/registry
+
+jobs:
+  build:
+    parameters:
+      rust-version:
+        type: string
+      eg-version:
+        type: string
+    docker: &docker
+      - image: jamwaffles/circleci-embedded-graphics:1.40.0-3
+        auth:
+          username: jamwaffles
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - run: rustup default << parameters.rust-version >>
+      - common_init
+      - run: just build << parameters.eg-version >>
+      - common_finish
+
+workflows:
+  build-all:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              rust-version: ["1.40.0", "stable"]
+              eg-version: ["0.6", "next"]
