@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  # Checkout repo, restore cache and update Cargo.lock
+  # Checkout repo and restore cache
   common_init:
     steps:
       - checkout
@@ -18,27 +18,28 @@ commands:
             - /home/circleci/.cargo/registry
 
 jobs:
-  msrv:
+  build:
+    parameters:
+      rust-version:
+        type: string
+      eg-version:
+        type: string
     docker: &docker
       - image: jamwaffles/circleci-embedded-graphics:1.40.0-3
         auth:
           username: jamwaffles
           password: $DOCKERHUB_PASSWORD
     steps:
+      - run: rustup default << parameters.rust-version >>
       - common_init
-      - run: just build-all
-      - common_finish
-
-  stable:
-    docker: *docker
-    steps:
-      - run: rustup default stable
-      - common_init
-      - run: just build-all
+      - run: just build << parameters.eg-version >>
       - common_finish
 
 workflows:
-  build_all:
+  build-all:
     jobs:
-      - msrv
-      - stable
+      - build:
+          matrix:
+            parameters:
+              rust-version: ["1.40.0", "stable"]
+              eg-version: ["0.6", "next"]
