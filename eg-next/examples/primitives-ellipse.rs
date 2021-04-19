@@ -8,7 +8,7 @@
 //! rendering.
 
 use embedded_graphics::{
-    mono_font::{ascii::Font6x9, MonoTextStyle},
+    mono_font::{ascii::FONT_6X9, MonoTextStyle},
     pixelcolor::Rgb888,
     prelude::*,
     primitives::*,
@@ -29,8 +29,8 @@ fn draw_ellipse(
     Text::new(
         &format!("S: {}\n{:?}", stroke_width, size),
         Point::new(5, 10),
+        MonoTextStyle::new(&FONT_6X9, Rgb888::MAGENTA),
     )
-    .into_styled(MonoTextStyle::new(Font6x9, Rgb888::MAGENTA))
     .draw(display)
     .unwrap();
 

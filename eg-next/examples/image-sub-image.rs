@@ -8,7 +8,7 @@
 
 use embedded_graphics::{
     image::Image,
-    mono_font::{ascii::Font6x9, MonoTextStyle},
+    mono_font::{ascii::FONT_6X9, MonoTextStyle},
     pixelcolor::Rgb888,
     prelude::*,
     primitives::Rectangle,
@@ -38,19 +38,11 @@ fn main() -> Result<(), core::convert::Infallible> {
     Image::new(&tile_c, Point::new(100, 310)).draw(&mut display)?;
 
     // Draw labels.
-    let text_style = MonoTextStyle::new(Font6x9, Rgb888::WHITE);
-    Text::new("TGA image", Point::new(10, 70))
-        .into_styled(text_style)
-        .draw(&mut display)?;
-    Text::new("Tile A", Point::new(10, 200))
-        .into_styled(text_style)
-        .draw(&mut display)?;
-    Text::new("Tile B", Point::new(10, 270))
-        .into_styled(text_style)
-        .draw(&mut display)?;
-    Text::new("Tile C", Point::new(10, 340))
-        .into_styled(text_style)
-        .draw(&mut display)?;
+    let text_style = MonoTextStyle::new(&FONT_6X9, Rgb888::WHITE);
+    Text::new("TGA image", Point::new(10, 70), text_style).draw(&mut display)?;
+    Text::new("Tile A", Point::new(10, 200), text_style).draw(&mut display)?;
+    Text::new("Tile B", Point::new(10, 270), text_style).draw(&mut display)?;
+    Text::new("Tile C", Point::new(10, 340), text_style).draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(2).build();
     Window::new("Sub images", &output_settings).show_static(&display);

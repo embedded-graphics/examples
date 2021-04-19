@@ -1,49 +1,45 @@
 //! # Example: Custom font
 //!
-//! Shows how to implement the `Font` trait for a custom `SevenSegmentFont` font. This font renders
-//! numbers only and emulates a classic 7 segment display.
+//! Shows how to implement a custom `SevenSegmentFont` font using the `MonoFontBuilder` struct. This
+//! font renders numbers only and emulates a classic 7 segment display.
 
 use embedded_graphics::{
-    mono_font::MonoTextStyle,
+    image::ImageRaw,
+    mono_font::{GlyphIndices, GlyphRange, MonoFont, MonoFontBuilder, MonoTextStyle},
     pixelcolor::BinaryColor,
     prelude::*,
-    text::{HorizontalAlignment, Text, TextStyleBuilder, VerticalAlignment},
+    text::{Alignment, Baseline, Text, TextStyleBuilder},
 };
 use embedded_graphics_simulator::{
     BinaryColorTheme, OutputSettingsBuilder, SimulatorDisplay, Window,
 };
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-struct SevenSegmentFont;
-
-impl MonoFont for SevenSegmentFont {
-    const FONT_IMAGE: &'static [u8] = include_bytes!("assets/seven-segment-font.raw");
-    const FONT_IMAGE_WIDTH: u32 = 224;
-
-    const CHARACTER_SIZE: Size = Size::new(22, 40);
-    const CHARACTER_SPACING: u32 = 4;
-
-    // TODO: add line height when MonoFont is updated
-    // const LINE_HEIGHT: u32 = 50;
-
-    fn char_offset(c: char) -> u32 {
-        c.to_digit(10).unwrap_or(0)
-    }
-}
+const SEVENT_SEGMENT_FONT: MonoFont = MonoFontBuilder::new()
+    .image(ImageRaw::new_binary(
+        include_bytes!("assets/seven-segment-font.raw"),
+        224,
+    ))
+    .character_size(Size::new(22, 40))
+    .character_spacing(4)
+    .glyph_indices(GlyphIndices::new(&[GlyphRange::new('0', '9', 0)], 0))
+    .build();
 
 fn main() -> Result<(), core::convert::Infallible> {
     let mut display: SimulatorDisplay<BinaryColor> = SimulatorDisplay::new(Size::new(128, 128));
 
-    let character_style = MonoTextStyle::new(SevenSegmentFont, BinaryColor::On);
+    let character_style = MonoTextStyle::new(&SEVENT_SEGMENT_FONT, BinaryColor::On);
     let text_style = TextStyleBuilder::new()
-        .character_style(character_style)
-        .vertical_alignment(VerticalAlignment::Bottom)
-        .horizontal_alignment(HorizontalAlignment::Center)
+        .baseline(Baseline::Bottom)
+        .alignment(Alignment::Center)
         .build();
 
-    Text::new("123\n456", display.bounding_box().center())
-        .into_styled(text_style)
-        .draw(&mut display)?;
+    Text::with_text_style(
+        "123\n456",
+        display.bounding_box().center(),
+        character_style,
+        text_style,
+    )
+    .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new()
         .theme(BinaryColorTheme::OledBlue)

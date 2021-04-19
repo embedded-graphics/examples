@@ -3,7 +3,7 @@
 //! Demonstrate the background styles and transparency behaviors of different font styles.
 
 use embedded_graphics::{
-    mono_font::{ascii::Font6x9, MonoTextStyleBuilder},
+    mono_font::{ascii::FONT_6X9, MonoTextStyleBuilder},
     pixelcolor::Rgb565,
     prelude::*,
     primitives::{Circle, PrimitiveStyle, Rectangle},
@@ -24,37 +24,40 @@ fn main() -> Result<(), core::convert::Infallible> {
         .draw(&mut display)
         .unwrap();
 
-    Text::new("Hello world! - no background", Point::new(15, 15))
-        .into_styled(
-            // Can also be written in the shorter form: TextStyle::new(Font6x9, Rgb565::WHITE)
-            MonoTextStyleBuilder::new()
-                .font(Font6x9)
-                .text_color(Rgb565::WHITE)
-                .build(),
-        )
-        .draw(&mut display)
-        .unwrap();
+    Text::new(
+        "Hello world! - no background",
+        Point::new(15, 15),
+        // Can also be written in the shorter form: TextStyle::new(&FONT_6X9, Rgb565::WHITE)
+        MonoTextStyleBuilder::new()
+            .font(&FONT_6X9)
+            .text_color(Rgb565::WHITE)
+            .build(),
+    )
+    .draw(&mut display)
+    .unwrap();
 
-    Text::new("Hello world! - filled background", Point::new(15, 30))
-        .into_styled(
-            MonoTextStyleBuilder::new()
-                .font(Font6x9)
-                .text_color(Rgb565::YELLOW)
-                .background_color(Rgb565::BLUE)
-                .build(),
-        )
-        .draw(&mut display)
-        .unwrap();
+    Text::new(
+        "Hello world! - filled background",
+        Point::new(15, 30),
+        MonoTextStyleBuilder::new()
+            .font(&FONT_6X9)
+            .text_color(Rgb565::YELLOW)
+            .background_color(Rgb565::BLUE)
+            .build(),
+    )
+    .draw(&mut display)
+    .unwrap();
 
-    Text::new("Hello world! - inverse background", Point::new(15, 45))
-        .into_styled(
-            MonoTextStyleBuilder::new()
-                .font(Font6x9)
-                .text_color(Rgb565::BLUE)
-                .background_color(Rgb565::YELLOW)
-                .build(),
-        )
-        .draw(&mut display)?;
+    Text::new(
+        "Hello world! - inverse background",
+        Point::new(15, 45),
+        MonoTextStyleBuilder::new()
+            .font(&FONT_6X9)
+            .text_color(Rgb565::BLUE)
+            .background_color(Rgb565::YELLOW)
+            .build(),
+    )
+    .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(3).build();
     Window::new("Fonts with transparent background", &output_settings).show_static(&display);

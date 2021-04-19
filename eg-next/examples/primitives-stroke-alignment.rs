@@ -7,7 +7,7 @@
 
 use core::convert::Infallible;
 use embedded_graphics::{
-    mono_font::{ascii::Font6x12, MonoTextStyle},
+    mono_font::{ascii::FONT_7X13, MonoTextStyle},
     pixelcolor::Rgb888,
     prelude::*,
     primitives::{
@@ -77,25 +77,22 @@ fn update(
     }
 
     let text_offset = Point::new(0, 8) + Size::new(PADDING, 10);
+    let text_style = MonoTextStyle::new(&FONT_7X13, Rgb888::WHITE);
     let column_offset = Size::new(SIZE + PADDING, 0);
-    Text::new("Inside", text_offset)
-        .into_styled(MonoTextStyle::new(Font6x12, Rgb888::WHITE))
-        .draw(display)?;
+    Text::new("Inside", text_offset, text_style).draw(display)?;
 
-    Text::new("Center\n(Default)", text_offset + column_offset)
-        .into_styled(MonoTextStyle::new(Font6x12, Rgb888::WHITE))
-        .draw(display)?;
+    Text::new("Center\n(Default)", text_offset + column_offset, text_style).draw(display)?;
 
-    Text::new("Outside", text_offset + column_offset * 2)
-        .into_styled(MonoTextStyle::new(Font6x12, Rgb888::WHITE))
-        .draw(display)?;
+    Text::new("Outside", text_offset + column_offset * 2, text_style).draw(display)?;
 
     Text::new(
         "Click to toggle shape outline",
         Point::new(PADDING as i32, 340),
+        text_style,
     )
-    .into_styled(MonoTextStyle::new(Font6x12, Rgb888::WHITE))
-    .draw(display)
+    .draw(display)?;
+
+    Ok(())
 }
 
 fn main() -> Result<(), Infallible> {

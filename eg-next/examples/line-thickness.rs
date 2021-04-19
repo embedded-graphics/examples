@@ -10,7 +10,7 @@ extern crate embedded_graphics;
 extern crate embedded_graphics_simulator;
 
 use embedded_graphics::{
-    mono_font::{ascii::Font6x9, MonoTextStyle},
+    mono_font::{ascii::FONT_6X9, MonoTextStyle},
     pixelcolor::Rgb888,
     prelude::*,
     primitives::{Line, PrimitiveStyle},
@@ -42,8 +42,8 @@ fn draw(
             position.y - start.y
         ),
         Point::new(5, 10),
+        MonoTextStyle::new(&FONT_6X9, Rgb888::MAGENTA),
     )
-    .into_styled(MonoTextStyle::new(Font6x9, Rgb888::MAGENTA))
     .draw(display)?;
 
     Line::new(start, position)
