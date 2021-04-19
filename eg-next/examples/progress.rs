@@ -3,11 +3,11 @@
 //! An example displaying a progress circle.
 
 use embedded_graphics::{
-    mono_font::{ascii::Font10x20, MonoTextStyle},
+    mono_font::{ascii::FONT_10X20, MonoTextStyle},
     pixelcolor::BinaryColor,
     prelude::*,
     primitives::{Arc, PrimitiveStyleBuilder, StrokeAlignment},
-    text::{HorizontalAlignment, Text, TextStyleBuilder, VerticalAlignment},
+    text::{Alignment, Baseline, Text, TextStyleBuilder},
 };
 use embedded_graphics_simulator::{
     BinaryColorTheme, OutputSettingsBuilder, SimulatorDisplay, SimulatorEvent, Window,
@@ -24,11 +24,10 @@ fn main() -> Result<(), std::convert::Infallible> {
         .stroke_width(5)
         .stroke_alignment(StrokeAlignment::Inside)
         .build();
-    let character_style = MonoTextStyle::new(Font10x20, BinaryColor::On);
+    let character_style = MonoTextStyle::new(&FONT_10X20, BinaryColor::On);
     let text_style = TextStyleBuilder::new()
-        .character_style(character_style)
-        .vertical_alignment(VerticalAlignment::Center)
-        .horizontal_alignment(HorizontalAlignment::Center)
+        .baseline(Baseline::Middle)
+        .alignment(Alignment::Center)
         .build();
 
     let output_settings = OutputSettingsBuilder::new()
@@ -51,9 +50,13 @@ fn main() -> Result<(), std::convert::Infallible> {
 
         // Draw centered text.
         let text = format!("{}%", progress);
-        Text::new(&text, display.bounding_box().center())
-            .into_styled(text_style)
-            .draw(&mut display)?;
+        Text::with_text_style(
+            &text,
+            display.bounding_box().center(),
+            character_style,
+            text_style,
+        )
+        .draw(&mut display)?;
 
         window.update(&display);
 
