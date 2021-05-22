@@ -9,15 +9,14 @@ use embedded_graphics::{
 };
 use embedded_graphics_simulator::{OutputSettings, SimulatorDisplay, Window};
 
-const PADDING: i32 = 16;
+const PADDING: i32 = 8;
 
 fn main() -> Result<(), core::convert::Infallible> {
-    let (w, h) = (320i32, 256i32);
+    let (w, h) = (176i32, 256i32);
 
-    let mut display: SimulatorDisplay<Rgb888> =
-        SimulatorDisplay::new(Size::new(w as u32, h as u32));
+    let mut display: SimulatorDisplay<Rgb888> = SimulatorDisplay::new(Size::new(w as u32, 170));
 
-    let line_style = PrimitiveStyle::with_stroke(Rgb888::GREEN, 1);
+    let line_style = PrimitiveStyle::with_stroke(Rgb888::GREEN, 7);
 
     let points = [
         Point::new(PADDING, h / 2),
@@ -29,7 +28,7 @@ fn main() -> Result<(), core::convert::Infallible> {
         Point::new(100, PADDING),
         Point::new(110, h / 2 + 20),
         Point::new(120, h / 2),
-        Point::new(w - PADDING, h / 2),
+        Point::new(160, h / 2),
     ];
 
     Polyline::new(&points)
