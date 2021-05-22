@@ -1,60 +1,96 @@
 //! # Example: Triangles
 //!
-//! Shows multiple triangles with different properties
+//! Shows multiple triangles with different styles.
 
 use embedded_graphics::{
-    pixelcolor::BinaryColor,
+    pixelcolor::Rgb888,
     prelude::*,
-    primitives::{PrimitiveStyle, Triangle},
+    primitives::{PrimitiveStyle, PrimitiveStyleBuilder, StrokeAlignment, Triangle},
 };
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
 
-const PAD: i32 = 10;
-
 fn main() -> Result<(), core::convert::Infallible> {
-    let mut display: SimulatorDisplay<BinaryColor> = SimulatorDisplay::new(Size::new(512, 128));
+    let mut display: SimulatorDisplay<Rgb888> = SimulatorDisplay::new(Size::new(600, 128));
 
-    let style = PrimitiveStyle::with_stroke(BinaryColor::On, 1);
+    let padding = Point::new(10, 20);
+    let size = display.bounding_box().size.height as i32 - (padding.y * 2);
+    let half_size = size / 2;
+    let offset = size + 10;
 
-    // No straight lines
-    Triangle::new(Point::new(0, 0), Point::new(64, 10), Point::new(15, 64))
-        .translate(Point::new(PAD, 0))
-        .into_styled(style)
+    // Triangle pointing up
+    let base_triangle = Triangle::new(
+        Point::new(0, size),
+        Point::new(half_size, 0),
+        Point::new(size, size),
+    )
+    .translate(padding);
+
+    // Triangle pointing down
+    let flipped_triangle = Triangle::new(
+        Point::new(0, 0),
+        Point::new(size, 0),
+        Point::new(half_size, size),
+    )
+    .translate(padding);
+
+    // Inside thick stroke, no fill
+    base_triangle
+        .into_styled(
+            PrimitiveStyleBuilder::new()
+                .stroke_alignment(StrokeAlignment::Inside)
+                .stroke_width(10)
+                .stroke_color(Rgb888::CSS_SALMON)
+                .build(),
+        )
         .draw(&mut display)?;
 
-    // Flat top
-    Triangle::new(Point::new(5, 0), Point::new(30, 64), Point::new(64, 0))
-        .translate(Point::new(64 + PAD, 0))
-        .into_styled(style)
+    // Center stroke alignment with fill
+    flipped_triangle
+        .translate(Point::new(offset, 0))
+        .into_styled(
+            PrimitiveStyleBuilder::new()
+                .stroke_width(10)
+                .stroke_color(Rgb888::CSS_AQUAMARINE)
+                .fill_color(Rgb888::CSS_CADET_BLUE)
+                .build(),
+        )
         .draw(&mut display)?;
 
-    // Flat left
-    Triangle::new(Point::new(0, 0), Point::new(0, 64), Point::new(64, 30))
-        .translate(Point::new((64 + PAD) * 2, 0))
-        .into_styled(style)
+    // Outside stroke alignment with fill
+    base_triangle
+        .translate(Point::new(offset * 2, 0))
+        .into_styled(
+            PrimitiveStyleBuilder::new()
+                .stroke_alignment(StrokeAlignment::Outside)
+                .stroke_width(9)
+                .stroke_color(Rgb888::CSS_FIRE_BRICK)
+                .fill_color(Rgb888::CSS_WHITE_SMOKE)
+                .build(),
+        )
         .draw(&mut display)?;
 
-    // Flat bottom
-    Triangle::new(Point::new(22, 0), Point::new(0, 64), Point::new(64, 64))
-        .translate(Point::new((64 + PAD) * 3, 0))
-        .into_styled(style)
+    // Fill only
+    flipped_triangle
+        .translate(Point::new(offset * 3, 0))
+        .into_styled(PrimitiveStyle::with_fill(Rgb888::CSS_CORAL))
         .draw(&mut display)?;
 
-    // Flat right
-    Triangle::new(Point::new(0, 22), Point::new(64, 0), Point::new(64, 64))
-        .translate(Point::new((64 + PAD) * 4, 0))
-        .into_styled(style)
+    // 1px stroke, no fill
+    base_triangle
+        .translate(Point::new(offset * 4, 0))
+        .into_styled(PrimitiveStyle::with_stroke(Rgb888::WHITE, 1))
         .draw(&mut display)?;
 
-    // Draw filled above stroke, should not be visible
-    Triangle::new(Point::new(0, 22), Point::new(64, 0), Point::new(64, 64))
-        .translate(Point::new((64 + PAD) * 5, 0))
-        .into_styled(style)
-        .draw(&mut display)?;
-
-    Triangle::new(Point::new(0, 22), Point::new(64, 0), Point::new(64, 64))
-        .translate(Point::new((64 + PAD) * 5, 0))
-        .into_styled(style)
+    // Really thick stroke with inside alignment
+    flipped_triangle
+        .translate(Point::new(offset * 5, 0))
+        .into_styled(
+            PrimitiveStyleBuilder::new()
+                .stroke_alignment(StrokeAlignment::Inside)
+                .stroke_width(20)
+                .stroke_color(Rgb888::CSS_DARK_TURQUOISE)
+                .build(),
+        )
         .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(2).build();
