@@ -6,13 +6,8 @@ publish = false
 
 [dependencies]
 chrono = "0.4.19"
-embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
-embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simulator.git" }
+embedded-graphics = "0.7.0-beta.1"
+embedded-graphics-simulator = "0.3.0-beta.2"
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
 
-[patch.crates-io]
-embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
-embedded-graphics-core = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
-tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
-tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
