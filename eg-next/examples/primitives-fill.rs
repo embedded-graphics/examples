@@ -24,7 +24,7 @@ where
         .into_styled(style)
         .draw(target)?;
 
-    Rectangle::new(Point::new(96, 0), Size::new(64, 64))
+    Rectangle::new(Point::new(97, 0), Size::new(64, 64))
         .into_styled(style)
         .draw(target)?;
 
@@ -33,7 +33,7 @@ where
         .into_styled(style)
         .draw(target)?;
 
-    Ellipse::new(Point::new(96 * 3, 0), ELLIPSE_SIZE)
+    Ellipse::new(Point::new(0 + 24, 97), ELLIPSE_SIZE)
         .into_styled(style)
         .draw(target)?;
 
@@ -41,13 +41,13 @@ where
         Rectangle::new(Point::new(32, 0), Size::new(64, 64)),
         CornerRadii::new(Size::new(16, 16)),
     )
-    .translate(Point::new(96 * 4, 0))
+    .translate(Point::new(96 + 24, 97))
     .into_styled(style)
     .draw(target)
 }
 
 fn main() -> Result<(), Infallible> {
-    let mut display: SimulatorDisplay<BinaryColor> = SimulatorDisplay::new(Size::new(512, 128));
+    let mut display: SimulatorDisplay<BinaryColor> = SimulatorDisplay::new(Size::new(300, 200));
 
     let stroke = PrimitiveStyle::with_stroke(BinaryColor::On, 1);
 
@@ -73,7 +73,7 @@ fn main() -> Result<(), Infallible> {
         stroke_off_fill_off,
     )?;
 
-    let output_settings = OutputSettingsBuilder::new().scale(2).build();
+    let output_settings = OutputSettingsBuilder::new().scale(1).build();
     Window::new("Filled primitives", &output_settings).show_static(&display);
 
     Ok(())
