@@ -11,6 +11,7 @@ embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graph
 embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simulator.git" }
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
+rand = "0.8.3"
 
 [patch.crates-io]
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
