@@ -1,10 +1,10 @@
 //! # Example: Extended characters
 //!
-//! Demonstrate ability of most built in fonts to render extended characters.
+//! Demonstrate ability of all built in fonts to render extended characters.
 
 use embedded_graphics::{
     mono_font::{
-        latin1::{FONT_10X20, FONT_6X12, FONT_6X9, FONT_8X13},
+        iso_8859_1::{FONT_10X20, FONT_6X12, FONT_6X9, FONT_8X13},
         MonoTextStyle,
     },
     pixelcolor::BinaryColor,
