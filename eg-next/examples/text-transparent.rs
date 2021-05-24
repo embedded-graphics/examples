@@ -24,14 +24,28 @@ fn main() -> Result<(), core::convert::Infallible> {
         .draw(&mut display)
         .unwrap();
 
+    // Can also be written in the shorter form: TextStyle::new(&FONT_6X9, Rgb565::WHITE)
+    let no_background = MonoTextStyleBuilder::new()
+        .font(&FONT_6X9)
+        .text_color(Rgb565::WHITE)
+        .build();
+
+    let filled_background = MonoTextStyleBuilder::new()
+        .font(&FONT_6X9)
+        .text_color(Rgb565::YELLOW)
+        .background_color(Rgb565::BLUE)
+        .build();
+
+    let inverse_background = MonoTextStyleBuilder::new()
+        .font(&FONT_6X9)
+        .text_color(Rgb565::BLUE)
+        .background_color(Rgb565::YELLOW)
+        .build();
+
     Text::new(
         "Hello world! - no background",
         Point::new(15, 15),
-        // Can also be written in the shorter form: TextStyle::new(&FONT_6X9, Rgb565::WHITE)
-        MonoTextStyleBuilder::new()
-            .font(&FONT_6X9)
-            .text_color(Rgb565::WHITE)
-            .build(),
+        no_background,
     )
     .draw(&mut display)
     .unwrap();
@@ -39,11 +53,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     Text::new(
         "Hello world! - filled background",
         Point::new(15, 30),
-        MonoTextStyleBuilder::new()
-            .font(&FONT_6X9)
-            .text_color(Rgb565::YELLOW)
-            .background_color(Rgb565::BLUE)
-            .build(),
+        filled_background,
     )
     .draw(&mut display)
     .unwrap();
@@ -51,11 +61,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     Text::new(
         "Hello world! - inverse background",
         Point::new(15, 45),
-        MonoTextStyleBuilder::new()
-            .font(&FONT_6X9)
-            .text_color(Rgb565::BLUE)
-            .background_color(Rgb565::YELLOW)
-            .build(),
+        inverse_background,
     )
     .draw(&mut display)?;
 

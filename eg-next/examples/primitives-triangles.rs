@@ -33,40 +33,46 @@ fn main() -> Result<(), core::convert::Infallible> {
     )
     .translate(padding);
 
+    let inside_thick_stroke = PrimitiveStyleBuilder::new()
+        .stroke_color(Rgb888::CSS_SALMON)
+        .stroke_width(10)
+        .stroke_alignment(StrokeAlignment::Inside)
+        .build();
+
+    let center_stroke_fill = PrimitiveStyleBuilder::new()
+        .stroke_color(Rgb888::CSS_AQUAMARINE)
+        .stroke_width(10)
+        .fill_color(Rgb888::CSS_CADET_BLUE)
+        .build();
+
+    let outside_stroke_fill = PrimitiveStyleBuilder::new()
+        .stroke_color(Rgb888::CSS_FIRE_BRICK)
+        .stroke_width(9)
+        .stroke_alignment(StrokeAlignment::Outside)
+        .fill_color(Rgb888::CSS_WHITE_SMOKE)
+        .build();
+
+    let thick_stroke = PrimitiveStyleBuilder::new()
+        .stroke_alignment(StrokeAlignment::Inside)
+        .stroke_width(20)
+        .stroke_color(Rgb888::CSS_DARK_TURQUOISE)
+        .build();
+
     // Inside thick stroke, no fill
     base_triangle
-        .into_styled(
-            PrimitiveStyleBuilder::new()
-                .stroke_color(Rgb888::CSS_SALMON)
-                .stroke_width(10)
-                .stroke_alignment(StrokeAlignment::Inside)
-                .build(),
-        )
+        .into_styled(inside_thick_stroke)
         .draw(&mut display)?;
 
     // Center stroke alignment with fill
     flipped_triangle
         .translate(Point::new(offset, 0))
-        .into_styled(
-            PrimitiveStyleBuilder::new()
-                .stroke_color(Rgb888::CSS_AQUAMARINE)
-                .stroke_width(10)
-                .fill_color(Rgb888::CSS_CADET_BLUE)
-                .build(),
-        )
+        .into_styled(center_stroke_fill)
         .draw(&mut display)?;
 
     // Outside stroke alignment with fill
     base_triangle
         .translate(Point::new(offset * 2, 0))
-        .into_styled(
-            PrimitiveStyleBuilder::new()
-                .stroke_color(Rgb888::CSS_FIRE_BRICK)
-                .stroke_width(9)
-                .stroke_alignment(StrokeAlignment::Outside)
-                .fill_color(Rgb888::CSS_WHITE_SMOKE)
-                .build(),
-        )
+        .into_styled(outside_stroke_fill)
         .draw(&mut display)?;
 
     // Fill only
@@ -84,13 +90,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     // Really thick stroke with inside alignment
     flipped_triangle
         .translate(Point::new(offset * 5, 0))
-        .into_styled(
-            PrimitiveStyleBuilder::new()
-                .stroke_alignment(StrokeAlignment::Inside)
-                .stroke_width(20)
-                .stroke_color(Rgb888::CSS_DARK_TURQUOISE)
-                .build(),
-        )
+        .into_styled(thick_stroke)
         .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(2).build();

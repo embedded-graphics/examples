@@ -1,6 +1,6 @@
-//! # Example: Multiline text
+//! # Example: Text styles
 //!
-//! Exercise the font renderer to demonstrate rendering of multiline text
+//! Display a sentence of text using different styles, colors an decorations.
 
 use embedded_graphics::{
     mono_font::{

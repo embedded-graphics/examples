@@ -20,25 +20,34 @@ fn main() -> Result<(), core::convert::Infallible> {
         .text_color(Rgb888::CSS_TOMATO)
         .build();
 
+    let left_aligned = TextStyleBuilder::new()
+        .alignment(Alignment::Left)
+        .baseline(Baseline::Top)
+        .build();
+
+    let center_aligned = TextStyleBuilder::new()
+        .alignment(Alignment::Center)
+        .baseline(Baseline::Middle)
+        .build();
+
+    let right_aligned = TextStyleBuilder::new()
+        .alignment(Alignment::Right)
+        .baseline(Baseline::Bottom)
+        .build();
+
     Text::with_text_style(
         "Left aligned text, origin top left",
         bounding_box.top_left,
         character_style,
-        TextStyleBuilder::new()
-            .alignment(Alignment::Left)
-            .baseline(Baseline::Top)
-            .build(),
+        left_aligned,
     )
     .draw(&mut display)?;
 
     Text::with_text_style(
-        "Left aligned text, origin center center",
+        "Center aligned text, origin center center",
         bounding_box.center(),
         character_style,
-        TextStyleBuilder::new()
-            .alignment(Alignment::Center)
-            .baseline(Baseline::Middle)
-            .build(),
+        center_aligned,
     )
     .draw(&mut display)?;
 
@@ -46,10 +55,7 @@ fn main() -> Result<(), core::convert::Infallible> {
         "Right aligned text, origin bottom right",
         bounding_box.bottom_right().unwrap(),
         character_style,
-        TextStyleBuilder::new()
-            .alignment(Alignment::Right)
-            .baseline(Baseline::Bottom)
-            .build(),
+        right_aligned,
     )
     .draw(&mut display)?;
 
