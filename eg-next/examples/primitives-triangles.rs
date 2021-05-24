@@ -37,9 +37,9 @@ fn main() -> Result<(), core::convert::Infallible> {
     base_triangle
         .into_styled(
             PrimitiveStyleBuilder::new()
-                .stroke_alignment(StrokeAlignment::Inside)
-                .stroke_width(10)
                 .stroke_color(Rgb888::CSS_SALMON)
+                .stroke_width(10)
+                .stroke_alignment(StrokeAlignment::Inside)
                 .build(),
         )
         .draw(&mut display)?;
@@ -49,8 +49,8 @@ fn main() -> Result<(), core::convert::Infallible> {
         .translate(Point::new(offset, 0))
         .into_styled(
             PrimitiveStyleBuilder::new()
-                .stroke_width(10)
                 .stroke_color(Rgb888::CSS_AQUAMARINE)
+                .stroke_width(10)
                 .fill_color(Rgb888::CSS_CADET_BLUE)
                 .build(),
         )
@@ -61,9 +61,9 @@ fn main() -> Result<(), core::convert::Infallible> {
         .translate(Point::new(offset * 2, 0))
         .into_styled(
             PrimitiveStyleBuilder::new()
-                .stroke_alignment(StrokeAlignment::Outside)
-                .stroke_width(9)
                 .stroke_color(Rgb888::CSS_FIRE_BRICK)
+                .stroke_width(9)
+                .stroke_alignment(StrokeAlignment::Outside)
                 .fill_color(Rgb888::CSS_WHITE_SMOKE)
                 .build(),
         )

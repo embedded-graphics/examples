@@ -54,7 +54,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     .draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(2).build();
-    Window::new("Fonts", &output_settings).show_static(&display);
+    Window::new("Text alignment", &output_settings).show_static(&display);
 
     Ok(())
 }

@@ -65,7 +65,7 @@ fn main() -> Result<(), core::convert::Infallible> {
     Text::new(" text!", position, normal).draw(&mut display)?;
 
     let output_settings = OutputSettingsBuilder::new().scale(2).build();
-    Window::new("Fonts", &output_settings).show_static(&display);
+    Window::new("Text styles", &output_settings).show_static(&display);
 
     Ok(())
 }
