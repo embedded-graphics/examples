@@ -1,8 +1,8 @@
 # Embedded graphics examples and demos for version `next`
 
-## [demo-clock](examples/demo-clock.rs)
+## [demo-analog-clock](examples/demo-analog-clock.rs)
 
-[![A screenshot of the embedded-graphics version next example called demo-clock](../doc/assets/next/demo-clock.png)](examples/demo-clock.rs)
+[![A screenshot of the embedded-graphics version next example called demo-analog-clock](../doc/assets/next/demo-analog-clock.png)](examples/demo-analog-clock.rs)
 
 ## [demo-pacman](examples/demo-pacman.rs)
 
@@ -28,10 +28,6 @@
 
 [![A screenshot of the embedded-graphics version next example called image-tga](../doc/assets/next/image-tga.png)](examples/image-tga.rs)
 
-## [primitives-ellipse](examples/primitives-ellipse.rs)
-
-[![A screenshot of the embedded-graphics version next example called primitives-ellipse](../doc/assets/next/primitives-ellipse.png)](examples/primitives-ellipse.rs)
-
 ## [primitives-fill](examples/primitives-fill.rs)
 
 [![A screenshot of the embedded-graphics version next example called primitives-fill](../doc/assets/next/primitives-fill.png)](examples/primitives-fill.rs)
@@ -39,10 +35,6 @@
 ## [primitives-polyline](examples/primitives-polyline.rs)
 
 [![A screenshot of the embedded-graphics version next example called primitives-polyline](../doc/assets/next/primitives-polyline.png)](examples/primitives-polyline.rs)
-
-## [primitives-rounded-rectangle](examples/primitives-rounded-rectangle.rs)
-
-[![A screenshot of the embedded-graphics version next example called primitives-rounded-rectangle](../doc/assets/next/primitives-rounded-rectangle.png)](examples/primitives-rounded-rectangle.rs)
 
 ## [primitives-stroke-alignment](examples/primitives-stroke-alignment.rs)
 
