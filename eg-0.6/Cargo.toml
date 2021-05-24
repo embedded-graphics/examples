@@ -3,6 +3,7 @@ name = "eg-examples-0-6"
 version = "0.1.0"
 edition = "2018"
 publish = false
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 chrono = "0.4.19"

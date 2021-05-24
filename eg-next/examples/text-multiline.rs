@@ -13,7 +13,6 @@ use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Windo
 fn main() -> Result<(), core::convert::Infallible> {
     let mut display: SimulatorDisplay<BinaryColor> = SimulatorDisplay::new(Size::new(256, 128));
 
-    // Show multiline text example
     let style = MonoTextStyleBuilder::new()
         .font(&FONT_6X9)
         .text_color(BinaryColor::On)

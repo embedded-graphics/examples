@@ -36,7 +36,7 @@ fn main() -> Result<(), std::convert::Infallible> {
     let mut window = Window::new("Progress", &output_settings);
 
     // The current progress percentage
-    let mut progress = 0;
+    let mut progress = 78;
 
     'running: loop {
         display.clear(BinaryColor::Off)?;

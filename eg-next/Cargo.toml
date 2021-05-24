@@ -3,6 +3,7 @@ name = "eg-examples"
 version = "0.1.0"
 edition = "2018"
 publish = false
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 chrono = "0.4.19"
@@ -16,3 +17,4 @@ embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graph
 embedded-graphics-core = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
+

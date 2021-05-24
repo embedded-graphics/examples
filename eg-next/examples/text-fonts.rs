@@ -1,6 +1,7 @@
 //! # Example: Fonts
 //!
-//! Demonstrate the available builtin fonts.
+//! Demonstrate some of the available builtin fonts. A full list of fonts can be found in the
+//! [embedded-graphics documentation](https://docs.rs/embedded-graphics).
 
 use embedded_graphics::{
     mono_font::{
