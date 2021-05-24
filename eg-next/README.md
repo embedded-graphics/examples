@@ -28,10 +28,6 @@
 
 [![A screenshot of the embedded-graphics version next example called image-tga](../doc/assets/next/image-tga.png)](examples/image-tga.rs)
 
-## [line-thickness](examples/line-thickness.rs)
-
-[![A screenshot of the embedded-graphics version next example called line-thickness](../doc/assets/next/line-thickness.png)](examples/line-thickness.rs)
-
 ## [primitives-ellipse](examples/primitives-ellipse.rs)
 
 [![A screenshot of the embedded-graphics version next example called primitives-ellipse](../doc/assets/next/primitives-ellipse.png)](examples/primitives-ellipse.rs)
@@ -59,10 +55,6 @@
 ## [primitives-triangles](examples/primitives-triangles.rs)
 
 [![A screenshot of the embedded-graphics version next example called primitives-triangles](../doc/assets/next/primitives-triangles.png)](examples/primitives-triangles.rs)
-
-## [simulator-input-handling](examples/simulator-input-handling.rs)
-
-[![A screenshot of the embedded-graphics version next example called simulator-input-handling](../doc/assets/next/simulator-input-handling.png)](examples/simulator-input-handling.rs)
 
 ## [text-alignment](examples/text-alignment.rs)
 
