@@ -7,8 +7,8 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 chrono = "0.4.19"
-embedded-graphics = "0.7.0-beta.1"
+embedded-graphics = "0.7.0-beta.2"
 embedded-graphics-simulator = "0.3.0-beta.2"
-tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
-tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
+tinybmp = "0.3.0-beta.1"
+tinytga = "0.4.0-beta.1"
 
