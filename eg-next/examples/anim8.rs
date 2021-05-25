@@ -9,8 +9,9 @@
 use chrono::{Local, Timelike};
 use core::f32::consts::PI;
 use embedded_graphics::{
+    image::Image,
     mono_font::{ascii::FONT_9X15, MonoTextStyle},
-    pixelcolor::Rgb888,
+    pixelcolor::{Rgb565, Rgb888},
     prelude::*,
     primitives::{
         self, Arc, Circle, Line, Polyline, PrimitiveStyle, PrimitiveStyleBuilder, Rectangle,
@@ -26,6 +27,7 @@ use std::{
     thread,
     time::{Duration, Instant},
 };
+use tinybmp::Bmp;
 
 fn polar(circle: &Circle, angle: f32, radius: i32) -> Point {
     let radius = radius as f32;
@@ -226,7 +228,7 @@ where
     Ok(())
 }
 
-fn draw_horizontal_rule<D>(target: &mut D, t: Instant, lerp: &mut Lerp) -> Result<(), D::Error>
+fn draw_horizontal_rule<D>(target: &mut D, t: Duration, lerp: &mut Lerp) -> Result<(), D::Error>
 where
     D: DrawTarget<Color = Rgb888>,
 {
@@ -241,13 +243,69 @@ where
 
     Triangle::new(Point::zero(), Point::new(5, 10), Point::new(-5, 10))
         .translate(Point::new(
-            10 + lerp.position(t.elapsed().as_millis() as u64) as i32,
+            10 + lerp.position(t.as_millis() as u64) as i32,
             200,
         ))
         .into_styled(PrimitiveStyle::with_stroke(Rgb888::CSS_LIME_GREEN, 1))
         .draw(target)?;
 
     Ok(())
+}
+
+struct Invuln {
+    image: Bmp<'static, Rgb565>,
+}
+
+impl Invuln {
+    fn new(image: Bmp<'static, Rgb565>) -> Self {
+        Self { image }
+    }
+
+    fn draw<D>(&mut self, display: &mut D, t: Duration) -> Result<(), D::Error>
+    where
+        D: DrawTarget<Color = Rgb888>,
+    {
+        let elapsed = t.as_millis() as u32;
+
+        let index = (elapsed / 250) % 4;
+
+        let mut display = display.color_converted();
+
+        let frame = self.image.sub_image(&Rectangle::new(
+            Point::new(self.image.size().height as i32 * index as i32, 0),
+            Size::new_equal(self.image.size().height),
+        ));
+
+        Image::new(&frame, Point::new(200, 100)).draw(&mut display)?;
+
+        Ok(())
+    }
+}
+
+struct Floater {
+    item: Invuln,
+}
+
+impl Floater {
+    fn new(item: Invuln) -> Self {
+        Self { item }
+    }
+
+    fn draw<D>(&mut self, display: &mut D, t: Duration) -> Result<(), D::Error>
+    where
+        D: DrawTarget<Color = Rgb888>,
+    {
+        let elapsed = t.as_millis() as u32;
+
+        let pos = ((elapsed as f32 / 200.0).sin() - 1.0) / 2.0 * 15.0;
+        let pos = pos as i32;
+
+        let mut display = display.translated(Point::new(0, pos));
+
+        self.item.draw(&mut display, t)?;
+
+        Ok(())
+    }
 }
 
 struct Lerp {
@@ -305,6 +363,9 @@ fn main() -> Result<(), core::convert::Infallible> {
 
     let mut rng = thread_rng();
 
+    let invuln: Bmp<Rgb565> = Bmp::from_slice(include_bytes!("./assets/invuln.bmp")).unwrap();
+    let mut invuln = Floater::new(Invuln::new(invuln));
+
     'running: loop {
         display.clear(Rgb888::BLACK)?;
 
@@ -315,7 +376,9 @@ fn main() -> Result<(), core::convert::Infallible> {
 
         draw_scanners(&mut display, start.elapsed())?;
 
-        draw_horizontal_rule(&mut display, start, &mut h_state)?;
+        draw_horizontal_rule(&mut display, start.elapsed(), &mut h_state)?;
+
+        invuln.draw(&mut display, start.elapsed())?;
 
         if !h_state.is_animating {
             h_state.move_target(start.elapsed().as_millis() as u64, rng.gen_range(0..=120));
