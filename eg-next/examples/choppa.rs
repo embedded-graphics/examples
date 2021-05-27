@@ -89,9 +89,71 @@ impl ChopperSprite {
     }
 }
 
+const NUM_POINTS: usize = 5;
+
+struct Stage {
+    position: u32,
+
+    /// `(offset, height)`
+    points: [(i32, u32); NUM_POINTS],
+}
+
+impl Stage {
+    fn new() -> Self {
+        let mut rng = thread_rng();
+
+        let mut points = [(0, 0); NUM_POINTS];
+
+        (0..NUM_POINTS).for_each(|idx| {
+            let offset = rng.gen_range(-50i32..=50);
+            let height = rng.gen_range(100u32..=150);
+
+            points[idx] = (offset, height)
+        });
+
+        Self {
+            position: 0,
+            points,
+        }
+    }
+
+    fn draw<D>(&mut self, display: &mut D, t: Duration) -> Result<(), D::Error>
+    where
+        D: DrawTarget<Color = Rgb888>,
+    {
+        display.clear(Rgb888::CSS_LIME)?;
+
+        let bb = display.bounding_box();
+
+        let spacing = bb.size.width / (NUM_POINTS - 2) as u32;
+
+        let center = bb.center();
+
+        for (idx, parts) in self.points.windows(2).enumerate() {
+            if let [(offs_1, height_1), (offs_2, height_2)] = parts {
+                let x1 = (idx as u32 * spacing) as i32;
+                let x2 = ((idx as u32 + 1) * spacing) as i32;
+
+                let a = Point::new(x1, center.y + offs_1 - *height_1 as i32 / 2);
+                let b = Point::new(x1, center.y + offs_1 + *height_1 as i32 / 2);
+                let c = Point::new(x2, center.y + offs_2 - *height_2 as i32 / 2);
+                let d = Point::new(x2, center.y + offs_2 + *height_2 as i32 / 2);
+
+                let style = PrimitiveStyle::with_fill(Rgb888::BLACK);
+
+                Triangle::new(a, b, c).into_styled(style).draw(display)?;
+                Triangle::new(b, c, d).into_styled(style).draw(display)?;
+            }
+        }
+
+        Ok(())
+    }
+}
+
 struct Game {
     state: State,
     chopper: ChopperSprite,
+    stage: Stage,
 }
 
 impl Game {
@@ -99,6 +161,7 @@ impl Game {
         Self {
             state: State::Off,
             chopper,
+            stage: Stage::new(),
         }
     }
 
@@ -132,7 +195,9 @@ impl Game {
                 None
             }
             State::Running { velocity, position } => {
-                // *position += *velocity;
+                // *position -= *velocity;
+
+                self.stage.draw(target, t)?;
 
                 self.chopper.draw(
                     target,
@@ -201,28 +266,6 @@ impl Game {
     fn reset(&mut self) {
         self.state = State::Off
     }
-
-    // fn draw_chopper<D>(target: &mut D, position: i32) -> Result<(), D::Error>
-    // where
-    //     D: DrawTarget<Color = Rgb888>,
-    // {
-    //     // Circle::with_center(
-    //     //     Point::new(20, target.bounding_box().center().y - position),
-    //     //     11,
-    //     // )
-    //     // .into_styled(
-    //     //     PrimitiveStyleBuilder::new()
-    //     //         .stroke_width(1)
-    //     //         .stroke_color(Rgb888::RED)
-    //     //         .fill_color(Rgb888::WHITE)
-    //     //         .build(),
-    //     // )
-    //     // .draw(target)?;
-
-    //     self.chopper.draw(target);
-
-    //     Ok(())
-    // }
 
     fn draw_start_button<D>(target: &mut D, color: Rgb888) -> Result<(), D::Error>
     where
