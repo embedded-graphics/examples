@@ -49,13 +49,57 @@ enum State {
     Running { velocity: i32, position: i32 },
 }
 
+struct ChopperSprite {
+    image: Bmp<'static, Rgb565>,
+}
+
+impl ChopperSprite {
+    const SIZE: Size = Size::new(31, 10);
+
+    fn new(image: Bmp<'static, Rgb565>) -> Self {
+        Self { image }
+    }
+
+    fn draw<D>(&mut self, display: &mut D, t: Duration, position: Point) -> Result<(), D::Error>
+    where
+        D: DrawTarget<Color = Rgb888>,
+    {
+        let elapsed = t.as_millis() as u32;
+
+        let index = (elapsed / 30) % 9;
+
+        let index = if index >= 5 {
+            // Reverse
+            9 - index
+        } else {
+            // Forward
+            index
+        };
+
+        let mut display = display.color_converted();
+
+        let frame = self.image.sub_image(&Rectangle::new(
+            Point::new(0, Self::SIZE.height as i32 * index as i32),
+            Self::SIZE,
+        ));
+
+        Image::new(&frame, position).draw(&mut display)?;
+
+        Ok(())
+    }
+}
+
 struct Game {
     state: State,
+    chopper: ChopperSprite,
 }
 
 impl Game {
-    fn new() -> Self {
-        Self { state: State::Off }
+    fn new(chopper: ChopperSprite) -> Self {
+        Self {
+            state: State::Off,
+            chopper,
+        }
     }
 
     fn update<D>(&mut self, target: &mut D, t: Duration) -> Result<(), D::Error>
@@ -73,7 +117,7 @@ impl Game {
                 } else {
                     Self::draw_title(target, *offset, target.bounding_box().size.height / 2)?;
 
-                    *offset = ((t - *start).as_millis() / 10) as u32;
+                    *offset = ((t - *start).as_millis() / 8) as u32;
 
                     None
                 }
@@ -88,9 +132,13 @@ impl Game {
                 None
             }
             State::Running { velocity, position } => {
-                *position += *velocity;
+                // *position += *velocity;
 
-                Self::draw_chopper(target, *position)?;
+                self.chopper.draw(
+                    target,
+                    t,
+                    target.bounding_box().center().y_axis() + Point::new(15, *position),
+                )?;
 
                 None
             }
@@ -154,25 +202,27 @@ impl Game {
         self.state = State::Off
     }
 
-    fn draw_chopper<D>(target: &mut D, position: i32) -> Result<(), D::Error>
-    where
-        D: DrawTarget<Color = Rgb888>,
-    {
-        Circle::with_center(
-            Point::new(20, target.bounding_box().center().y - position),
-            11,
-        )
-        .into_styled(
-            PrimitiveStyleBuilder::new()
-                .stroke_width(1)
-                .stroke_color(Rgb888::RED)
-                .fill_color(Rgb888::WHITE)
-                .build(),
-        )
-        .draw(target)?;
+    // fn draw_chopper<D>(target: &mut D, position: i32) -> Result<(), D::Error>
+    // where
+    //     D: DrawTarget<Color = Rgb888>,
+    // {
+    //     // Circle::with_center(
+    //     //     Point::new(20, target.bounding_box().center().y - position),
+    //     //     11,
+    //     // )
+    //     // .into_styled(
+    //     //     PrimitiveStyleBuilder::new()
+    //     //         .stroke_width(1)
+    //     //         .stroke_color(Rgb888::RED)
+    //     //         .fill_color(Rgb888::WHITE)
+    //     //         .build(),
+    //     // )
+    //     // .draw(target)?;
 
-        Ok(())
-    }
+    //     self.chopper.draw(target);
+
+    //     Ok(())
+    // }
 
     fn draw_start_button<D>(target: &mut D, color: Rgb888) -> Result<(), D::Error>
     where
@@ -235,7 +285,10 @@ fn main() -> Result<(), core::convert::Infallible> {
 
     let start = Instant::now();
 
-    let mut game = Game::new();
+    let chopper: Bmp<Rgb565> = Bmp::from_slice(include_bytes!("./assets/chopper.bmp")).unwrap();
+    let chopper = ChopperSprite::new(chopper);
+
+    let mut game = Game::new(chopper);
 
     'running: loop {
         display.clear(Rgb888::BLACK)?;
