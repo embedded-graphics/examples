@@ -46,6 +46,7 @@ enum State {
     Off,
     TitleOpening { start: Duration, offset: u32 },
     TitleIdle,
+    Running { velocity: i32, position: i32 },
 }
 
 struct Game {
@@ -86,6 +87,13 @@ impl Game {
 
                 None
             }
+            State::Running { velocity, position } => {
+                *position += *velocity;
+
+                Self::draw_chopper(target, *position)?;
+
+                None
+            }
         };
 
         if let Some(new_state) = new_state {
@@ -95,8 +103,75 @@ impl Game {
         Ok(())
     }
 
+    fn key_down(&mut self, keycode: Keycode) {
+        match keycode {
+            Keycode::R => self.reset(),
+
+            Keycode::Space => {
+                let new_state = match &mut self.state {
+                    State::TitleIdle => Some(State::Running {
+                        velocity: 0,
+                        position: 0,
+                    }),
+                    State::Running { velocity, .. } => {
+                        *velocity = 3;
+
+                        None
+                    }
+                    _ => None,
+                };
+
+                if let Some(new_state) = new_state {
+                    self.state = new_state;
+                }
+            }
+
+            _ => (),
+        }
+    }
+
+    fn key_up(&mut self, keycode: Keycode) {
+        match keycode {
+            Keycode::Space => {
+                let new_state = match &mut self.state {
+                    State::Running { velocity, .. } => {
+                        *velocity = -5;
+
+                        None
+                    }
+                    _ => None,
+                };
+
+                if let Some(new_state) = new_state {
+                    self.state = new_state;
+                }
+            }
+            _ => (),
+        }
+    }
+
     fn reset(&mut self) {
         self.state = State::Off
+    }
+
+    fn draw_chopper<D>(target: &mut D, position: i32) -> Result<(), D::Error>
+    where
+        D: DrawTarget<Color = Rgb888>,
+    {
+        Circle::with_center(
+            Point::new(20, target.bounding_box().center().y - position),
+            11,
+        )
+        .into_styled(
+            PrimitiveStyleBuilder::new()
+                .stroke_width(1)
+                .stroke_color(Rgb888::RED)
+                .fill_color(Rgb888::WHITE)
+                .build(),
+        )
+        .draw(target)?;
+
+        Ok(())
     }
 
     fn draw_start_button<D>(target: &mut D, color: Rgb888) -> Result<(), D::Error>
@@ -177,10 +252,10 @@ fn main() -> Result<(), core::convert::Infallible> {
             match event {
                 SimulatorEvent::Quit => break 'running Ok(()),
                 SimulatorEvent::KeyDown { keycode, .. } => {
-                    match keycode {
-                        Keycode::R => game.reset(),
-                        _ => (), // TODO: More input
-                    }
+                    game.key_down(keycode);
+                }
+                SimulatorEvent::KeyUp { keycode, .. } => {
+                    game.key_up(keycode);
                 }
 
                 _ => {}
