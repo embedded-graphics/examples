@@ -31,5 +31,5 @@ workflows:
       - build:
           matrix:
             parameters:
-              rust-version: ["1.40.0", "stable"]
+              rust-version: ["stable"]
               eg-version: ["0.6", "next"]
