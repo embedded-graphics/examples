@@ -72,6 +72,10 @@
 
 [![A screenshot of the embedded-graphics version next example called text-styles](../doc/assets/next/text-styles.png)](examples/text-styles.rs)
 
+## [text-textbox](examples/text-textbox.rs)
+
+[![A screenshot of the embedded-graphics version next example called text-textbox](../doc/assets/next/text-textbox.png)](examples/text-textbox.rs)
+
 ## [text-transparent](examples/text-transparent.rs)
 
 [![A screenshot of the embedded-graphics version next example called text-transparent](../doc/assets/next/text-transparent.png)](examples/text-transparent.rs)
