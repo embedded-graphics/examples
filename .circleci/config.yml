@@ -16,11 +16,11 @@ jobs:
       - run: rustup default << parameters.rust-version >>
       - checkout
       - restore_cache:
-          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-<< parameters.eg-version >>/Cargo.lock" }}
+          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}
       - run: just build << parameters.eg-version >>
       - run: just check-readme << parameters.eg-version >>
       - save_cache:
-          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "eg-<< parameters.eg-version >>/Cargo.lock" }}
+          key: v3-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_JOB }}
           paths:
             - ./target
             - /home/circleci/.cargo/registry
