@@ -33,6 +33,7 @@ jobs:
       - run: rustup default << parameters.rust-version >>
       - common_init
       - run: just build << parameters.eg-version >>
+      - run: just check-readme << parameters.eg-version >>
       - common_finish
 
 workflows:
