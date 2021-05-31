@@ -9,12 +9,14 @@ license = "MIT OR Apache-2.0"
 chrono = "0.4.19"
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simulator.git" }
+embedded-text = { git = "https://github.com/embedded-graphics/embedded-text.git" }
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
 
 [patch.crates-io]
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-graphics-core = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
+embedded-text = { git = "https://github.com/embedded-graphics/embedded-text.git" }
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
 
