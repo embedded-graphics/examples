@@ -1,7 +1,10 @@
 # Embedded graphics examples
 
-- [development (`eg-next`)](./eg-next)
+This repository contains examples for different embedded-graphics versions:
+
+- [0.7 (`eg-0.7`)](./eg-0.7)
 - [0.6 (`eg-0.6`)](./eg-0.6)
+- [development (`eg-next`)](./eg-next)
 
 ## License
 

@@ -3,7 +3,7 @@
 #----------
 
 # Build the examples for all versions
-build-all: (build "next") (build "0.6")
+build-all: (build "next") (build "0.6") (build "0.7")
 
 # Build the examples for the given version
 build version:
@@ -70,7 +70,7 @@ generate-readme version: (_build-readme version)
     cp "eg-{{version}}/target/README.md" "eg-{{version}}/README.md"
 
 # Generate readmes for all versions
-generate-readmes: (generate-readme "next") (generate-readme "0.6")
+generate-readmes: (generate-readme "next") (generate-readme "0.6") (generate-readme "0.7")
 
 # Check a readme to see if it needs to be regenerated
 check-readme version: (_build-readme version)
@@ -83,4 +83,4 @@ check-readme version: (_build-readme version)
     )
 
 # Check all readmes
-check-readmes: (check-readme "next") (check-readme "0.6")
+check-readmes: (check-readme "next") (check-readme "0.6") (check-readme "0.7")
