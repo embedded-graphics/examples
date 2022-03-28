@@ -10,10 +10,9 @@ This repository contains examples for different embedded-graphics versions:
 
 Examples in this repository use
 [`embedded-graphics-simulator`](https://crates.io/crates/embedded-graphics-simulator) to show
-output. The simulator will require some system setup to run correctly.
+output. 
 
-The [simulator setup instructions](https://github.com/embedded-graphics/simulator#setup) contain
-steps for various platforms.
+The simulator will require some system setup to run correctly. The [simulator setup instructions](https://github.com/embedded-graphics/simulator#setup) contain an installation guide for various platforms.
 
 ## License
 
