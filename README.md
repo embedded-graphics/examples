@@ -6,6 +6,15 @@ This repository contains examples for different embedded-graphics versions:
 - [0.6 (`eg-0.6`)](./eg-0.6)
 - [development (`eg-next`)](./eg-next)
 
+## Setting up the simulator
+
+Examples in this repository use
+[`embedded-graphics-simulator`](https://crates.io/crates/embedded-graphics-simulator) to show
+output. The simulator will require some system setup to run correctly.
+
+The [simulator setup instructions](https://github.com/embedded-graphics/simulator#setup) contain
+steps for various platforms.
+
 ## License
 
 Licensed under either of
