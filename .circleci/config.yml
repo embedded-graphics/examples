@@ -8,7 +8,7 @@ jobs:
       eg-version:
         type: string
     docker:
-      - image: jamwaffles/circleci-embedded-graphics:1.40.0-3
+      - image: jamwaffles/circleci-embedded-graphics:1.71.1-0
         auth:
           username: jamwaffles
           password: $DOCKERHUB_PASSWORD
