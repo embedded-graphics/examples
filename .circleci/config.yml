@@ -8,7 +8,7 @@ jobs:
       eg-version:
         type: string
     docker:
-      - image: jamwaffles/circleci-embedded-graphics:1.40.0-3
+      - image: jamwaffles/circleci-embedded-graphics:1.71.1-0
         auth:
           username: jamwaffles
           password: $DOCKERHUB_PASSWORD
@@ -32,4 +32,4 @@ workflows:
           matrix:
             parameters:
               rust-version: ["stable"]
-              eg-version: ["0.6", "0.7", "next"]
+              eg-version: ["0.6", "0.7","0.8", "next"]
