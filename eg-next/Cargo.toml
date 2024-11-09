@@ -7,6 +7,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 chrono = "0.4.19"
+eg-seven-segment = { git = "https://github.com/embedded-graphics/eg-seven-segment" }
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simulator.git" }
 embedded-text = { git = "https://github.com/embedded-graphics/embedded-text.git" }
@@ -19,4 +20,3 @@ embedded-graphics-core = { git = "https://github.com/embedded-graphics/embedded-
 embedded-text = { git = "https://github.com/embedded-graphics/embedded-text.git" }
 tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
 tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
-

@@ -4,6 +4,10 @@
 
 [![A screenshot of the embedded-graphics version 0.8 example called demo-analog-clock](../doc/assets/0.8/demo-analog-clock.png)](examples/demo-analog-clock.rs)
 
+## [demo-digital-clock](examples/demo-digital-clock.rs)
+
+[![A screenshot of the embedded-graphics version 0.8 example called demo-digital-clock](../doc/assets/0.8/demo-digital-clock.png)](examples/demo-digital-clock.rs)
+
 ## [demo-pacman](examples/demo-pacman.rs)
 
 [![A screenshot of the embedded-graphics version 0.8 example called demo-pacman](../doc/assets/0.8/demo-pacman.png)](examples/demo-pacman.rs)
