@@ -15,7 +15,10 @@ use embedded_graphics_simulator::{
 };
 
 const SEVENT_SEGMENT_FONT: MonoFont = MonoFont {
-    image: ImageRaw::new_const(include_bytes!("assets/seven-segment-font.raw"), Size::new(224, 40)),
+    image: ImageRaw::new_const(
+        include_bytes!("assets/seven-segment-font.raw"),
+        Size::new(224, 40),
+    ),
     glyph_mapping: &StrGlyphMapping::new("0123456789", 0),
     character_size: Size::new(22, 40),
     character_spacing: 4,

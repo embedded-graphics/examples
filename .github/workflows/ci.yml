@@ -1,0 +1,30 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  rustfmt:
+    name: Check formatting
+    strategy:
+      matrix:
+        version: ["eg-0.6", "eg-0.7", "eg-0.8", "eg-next"]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - run: cd "${{ matrix.version }}" && cargo fmt --check
+
+  build:
+    name: Build examples
+    strategy:
+      matrix:
+        version: ["eg-0.6", "eg-0.7", "eg-0.8", "eg-next"]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cd "${{ matrix.version }}" && cargo build
