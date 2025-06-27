@@ -11,12 +11,12 @@ eg-seven-segment = { git = "https://github.com/embedded-graphics/eg-seven-segmen
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simulator.git" }
 embedded-text = { git = "https://github.com/embedded-graphics/embedded-text.git" }
-tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
-tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
+tinybmp = { git = "https://github.com/rfuest/tinybmp.git", branch = "eg-next" }
+tinytga = { git = "https://github.com/rfuest/tinytga.git", branch = "eg-0.9" }
 
 [patch.crates-io]
 embedded-graphics = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-graphics-core = { git = "https://github.com/embedded-graphics/embedded-graphics.git" }
 embedded-text = { git = "https://github.com/embedded-graphics/embedded-text.git" }
-tinybmp = { git = "https://github.com/embedded-graphics/tinybmp.git" }
-tinytga = { git = "https://github.com/embedded-graphics/tinytga.git" }
+tinybmp = { git = "https://github.com/rfuest/tinybmp.git", branch = "eg-next" }
+tinytga = { git = "https://github.com/rfuest/tinytga.git", branch = "eg-0.9" }
